@@ -1,7 +1,7 @@
 {
   "name": "vue-livechat-popup",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This simple and practical Vue.js plugin helps you effortlessly create a beautiful popup for your live chat section on your website using messaging services like WhatsApp, Telegram, Messenger, etc., without the need for any server or account.",
   "author": "Morteza Saeed mohammadi <m.mohammadi721@gmail.com> (https://github.com/momohammadi)",
   "main": "dist/vue-livechat-popup.cjs.js",
@@ -21,7 +21,7 @@
     "demo": "cd demo && vite",
     "demo:build": "cd demo && vite build",
     "demo:publish": "cp ./demo/dist/index.html ./demo/dist/200.html && surge ./demo/dist https://vue-livechat-popup.surge.sh/",
-    "publish": "git push --tags && npm build && npm publish"
+    "publish": "git push --tags && npm run build && npm publish"
   },
   "dependencies": {
     "@vue-a11y/focus-loop": "^1.1.0",
