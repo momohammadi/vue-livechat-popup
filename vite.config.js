@@ -5,9 +5,9 @@ export default defineConfig({
   plugins: [vue({ isProduction: true })],
   build: {
     lib: {
-      entry: new URL('src', import.meta.url).pathname, // مسیر به جای require('path')
+      entry: ['src/index.js'],
       name: 'VueLiveChatPopup',
-      formats: ['es', 'cjs', 'iife'],
+      formats: ['es', 'iife'],
     },
     rollupOptions: {
       external: ['vue'],
