@@ -46,7 +46,7 @@ First, import the CSS file in your Vue.js application:
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
-import 'vue-livechat-popup/dist/style.css'
+import 'vue-livechat-popup/dist/vue-livechat-popup.css'
 
 createApp(App)
   .use(VueSocialChat)
@@ -57,40 +57,40 @@ Then, use the component in your template:
 
 ```javascript
 <script setup>
-   import { VueLiveChatPopup } from 'vue-livechat-popup'
+import { LiveChat } from 'vue-livechat-popup'
 
-    const attendants = [
-      {
-        app: 'telegram',
-        label: 'Support',
-        name: 'John Doe',
-        username: 'JohnDoe',
-        avatar: {
-          src: 'https://randomuser.me/api/portraits/men/64.jpg',
-          alt: 'John Doe avatar',
-        },
-      },
-      {
-        app: 'telegram',
-        label: 'Sales',
-        name: 'Alex Smith',
-        username: 'AlexSmith',
-        avatar: {
-          src: 'https://randomuser.me/api/portraits/men/74.jpg',
-          alt: 'Alex Smith avatar',
-        },
-      },
-      {
-        app: 'telegram',
-        label: 'Developer',
-        name: 'Jordan Williams',
-        username: 'JordanWilliams',
-        avatar: {
-          src: 'https://randomuser.me/api/portraits/men/71.jpg',
-          alt: 'Jordan Williams avatar',
-        },
-      },
-    ]
+const attendants = [
+  {
+    app: 'telegram',
+    label: 'Support',
+    name: 'John Doe',
+    username: 'JohnDoe',
+    avatar: {
+      src: 'https://randomuser.me/api/portraits/men/64.jpg',
+      alt: 'John Doe avatar',
+    },
+  },
+  {
+    app: 'telegram',
+    label: 'Sales',
+    name: 'Alex Smith',
+    username: 'AlexSmith',
+    avatar: {
+      src: 'https://randomuser.me/api/portraits/men/74.jpg',
+      alt: 'Alex Smith avatar',
+    },
+  },
+  {
+    app: 'telegram',
+    label: 'Developer',
+    name: 'Jordan Williams',
+    username: 'JordanWilliams',
+    avatar: {
+      src: 'https://randomuser.me/api/portraits/men/71.jpg',
+      alt: 'Jordan Williams avatar',
+    },
+  },
+]
 </script>
 
 <template>
@@ -117,15 +117,15 @@ Then, use the component in your template:
 `vue-livechat-popup` uses CSS variables, so you can customize it with the colors you want.
 
 ```css
---vsc-bg-header
---vsc-bg-footer
---vsc-text-color-header
---vsc-text-color-footer
---vsc-bg-button
---vsc-text-color-button
---vsc-outline-color
---vsc-border-color-bottom-header
---vsc-border-color-top-footer
+--vlcp-bg-header
+--vlcp-bg-footer
+--vlcp-text-color-header
+--vlcp-text-color-footer
+--vlcp-bg-button
+--vlcp-text-color-button
+--vlcp-outline-color
+--vlcp-border-color-bottom-header
+--vlcp-border-color-top-footer
 ```
 
 ## Props
@@ -150,12 +150,12 @@ VueLiveChatPopup triggers events ($emit) when opening and closing the popup.
 <template>
   <div class='layout'>
     <!-- ommited -->
-    <VueLiveChatPopup
+    <LiveChat
       @open="$analytics.fbq('trackCustom', 'WhatsAppChat', { event: 'Chat Open' })"
       @close="$analytics.fbq('trackCustom', 'WhatsAppChat', { event: 'Chat Close' })"
     >
       <!-- ommited -->
-    </VueLiveChatPopup>
+    </LiveChat>
   </div>
 </template> 
 ```
