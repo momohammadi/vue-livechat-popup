@@ -7,7 +7,7 @@
     </template>
     <template v-slot:button>
       <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/master/src/icons/messenger.svg"
+        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/messenger.svg"
         alt="icon messenger"
         aria-hidden="true"
       />

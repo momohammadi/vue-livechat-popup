@@ -4,7 +4,7 @@
   <VueLiveChatPopup icon class="wechat-chat" :attendants="attendants">
     <template v-slot:button>
       <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/master/src/icons/wechat.svg"
+        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/wechat.svg"
         alt="icon wechat"
         aria-hidden="true"
       />

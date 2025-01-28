@@ -6,7 +6,7 @@
     </template>
     <template v-slot:button>
       <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/master/src/icons/line.svg"
+        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/line.svg"
         alt="icon line"
         aria-hidden="true"
       />

@@ -6,7 +6,7 @@
     </template>
     <template v-slot:button>
       <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/master/src/icons/viber.svg"
+        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/viber.svg"
         alt="icon viber"
         aria-hidden="true"
       />

@@ -4,7 +4,7 @@
   <VueLiveChatPopup icon class="twitter-chat" :attendants="attendants">
     <template v-slot:button>
       <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/master/src/icons/twitter.svg"
+        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/twitter.svg"
         alt="icon twitter"
         aria-hidden="true"
       />

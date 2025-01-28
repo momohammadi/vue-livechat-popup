@@ -7,7 +7,7 @@
     </template>
     <template v-slot:button>
       <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/next_iran/src/assets/icons/eitaa.svg"
+        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/eitaa.svg"
         alt="icon eitaa"
         aria-hidden="true"
       />
