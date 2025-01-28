@@ -34,7 +34,7 @@
         <span v-show="!show || !icon">
           <slot name="button" :open="show">
             <img
-              :src="`${urlAssets}/icons/chat.svg`"
+              :src="`${buttonIcon('chat')}`"
               alt="chat icon"
               aria-hidden="true"
             />
@@ -43,7 +43,7 @@
         <span v-show="show || !icon">
           <slot name="close">
             <img
-              :src="`${urlAssets}/icons/close.svg`"
+              :src="`${buttonIcon('close')}`"
               alt="close icon"
               aria-hidden="true"
             />
@@ -87,7 +87,16 @@ export default defineComponent({
       default: 'ltr',
     },
   },
-
+  methods: {
+    buttonIcon(name) {
+      if (this.assetsDir != undefined) {
+        // Example implementation
+        return `${this.assetsDir}/${name}.svg`
+      } else {
+        return `${this.urlAssets}/icons/${name}.svg`
+      }
+    },
+  },
   computed: {
     ariaLabelButton() {
       return `${this.show ? 'Close' : 'Open'} livechat popup`
