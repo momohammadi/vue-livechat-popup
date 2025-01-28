@@ -21,7 +21,7 @@
     "demo": "cd demo && vite",
     "demo:build": "cd demo && vite build",
     "demo:publish": "cp ./demo/dist/index.html ./demo/dist/200.html && surge ./demo/dist https://vue-livechat-popup.surge.sh/",
-    "publish": "git push --tags && npm run build && npm publish"
+    "publish": "git push --follow-tags && npm run build && npm publish"
   },
   "dependencies": {
     "@vue-a11y/focus-loop": "^1.1.0",
