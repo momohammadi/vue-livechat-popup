@@ -12,7 +12,7 @@
 <script>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 export default {
-  name: 'WhatsAppPage',
+  name: 'AutoOpenPage',
   setup() {
     const attendants = [
       {

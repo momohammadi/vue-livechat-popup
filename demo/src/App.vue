@@ -16,16 +16,18 @@
     <hr />
     <router-view />
   </main>
+  <OpenOnPagesVisit />
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import NavList from './components/NavList.vue'
-
+import OpenOnPagesVisit from './components/OpenOnPagesVisit.vue'
 export default defineComponent({
   name: 'App',
   components: {
     'nav-list': NavList,
+    OpenOnPagesVisit: OpenOnPagesVisit,
   },
 })
 </script>

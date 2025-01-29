@@ -9,7 +9,7 @@
       >this link</a
     >
   </h1>
-  <button @click="openOnClick = !openOnClick">click here</button>
+  <button class="custom" @click="openOnClick = !openOnClick">click here</button>
   <VueLiveChatPopup
     icon
     :open="openOnClick"
@@ -21,7 +21,7 @@
 <script>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 export default {
-  name: 'WhatsAppPage',
+  name: 'CustomButtonPage',
   setup() {
     const attendants = [
       {
@@ -68,6 +68,7 @@ export default {
     font-weight 500
 
 button
+  &.custom
     background #d40909
     color white
     border none

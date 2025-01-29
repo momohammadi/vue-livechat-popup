@@ -1,29 +1,30 @@
 <template>
-  <h1>popup chat default open</h1>
-  <VueLiveChatPopup icon open class="whatsapp-chat" :attendants="attendants">
-    <template v-slot:header>
-      <p>Click one of our representatives below to chat on WhatsApp.</p>
+  <VueLiveChatPopup
+    icon
+    :number-page-view="8"
+    class="whatsapp-chat"
+    :attendants="attendants"
+    dir="rtl"
+    @open="handle('open')"
+    @close="handle('close')"
+    v-show="display == 'visible'"
+  >
+    <template #header>
+      <p>This popup chat opened because you've visited more than 8 pages</p>
     </template>
-    <template v-slot:button>
-      <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/whatsapp.svg"
-        alt="icon whatsapp"
-        aria-hidden="true"
-      />
-    </template>
-    <template v-slot:footer>
-      <small>
-        Call us to
-        <a href="tel:+55988656544" title="Call us">+55 95865-6544</a>
-        from 8:00hs a 18:00hs
-      </small>
+    <template #footer>
+      <p>
+        In the demo version, I hide this when it’s closed to make the
+        functionality clearer
+      </p>
     </template>
   </VueLiveChatPopup>
 </template>
-
 <script>
-export default {
-  name: 'DefaultOpenPage',
+import { ref, defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'OpenOnPagesVisit',
   setup() {
     const attendants = [
       {
@@ -57,15 +58,11 @@ export default {
         },
       },
     ]
-
-    return { attendants }
+    const display = ref('invisible')
+    const handle = (state) => {
+      display.value = state == 'open' ? 'visible' : 'invisible'
+    }
+    return { attendants, handle, display }
   },
-}
+})
 </script>
-
-<style lang="stylus">
-
-.whatsapp-chat
-  .vlcp-popup-header p
-    font-weight 500
-</style>

@@ -1,29 +1,23 @@
 <template>
-  <h1>popup chat default open</h1>
-  <VueLiveChatPopup icon open class="whatsapp-chat" :attendants="attendants">
-    <template v-slot:header>
-      <p>Click one of our representatives below to chat on WhatsApp.</p>
-    </template>
-    <template v-slot:button>
-      <img
-        src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/whatsapp.svg"
-        alt="icon whatsapp"
-        aria-hidden="true"
-      />
-    </template>
-    <template v-slot:footer>
-      <small>
-        Call us to
-        <a href="tel:+55988656544" title="Call us">+55 95865-6544</a>
-        from 8:00hs a 18:00hs
-      </small>
+  <h1>open popup on specific page</h1>
+  <VueLiveChatPopup
+    icon
+    :open-on-route-name="['/open-route']"
+    class="whatsapp-chat"
+    :attendants="attendants"
+  >
+    <template #header>
+      <p>
+        This chat popup opens automatically because you navigated to the
+        open-route page.
+      </p>
     </template>
   </VueLiveChatPopup>
 </template>
 
 <script>
 export default {
-  name: 'DefaultOpenPage',
+  name: 'OpenOnRouteName',
   setup() {
     const attendants = [
       {
