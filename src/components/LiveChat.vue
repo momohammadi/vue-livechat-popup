@@ -133,12 +133,22 @@ export default defineComponent({
       document.addEventListener('click', closeClickOutside)
       document.addEventListener('keydown', closeKeydownEsc)
     })
-
+    watch(
+      () => props.open,
+      (newVal) => {
+        if (event) {
+          document.addEventListener('click', closeClickOutside)
+          document.addEventListener('keydown', closeKeydownEsc)
+        } else {
+          show.value = newVal
+        }
+      }
+    )
     function togglePopup() {
       show.value = !show.value
       setTimeout(() => vlcpButton.value.blur(), 500)
       if (!show) return emit('close')
-      emit('open')
+      return emit('open')
     }
 
     function closeClickOutside({ target }) {
