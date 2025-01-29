@@ -64,5 +64,13 @@ export default [
   {
     path: '/default-open',
     component: () => import('../pages/DefaultOpen.vue')
+  },
+  {
+    path: '/auto-open',
+    component: () => import('../pages/AutoOpen.vue')
+  },
+  {
+    path: '/custom-button',
+    component: () => import('../pages/CustomButton.vue')
   }
 ]
