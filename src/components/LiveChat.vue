@@ -90,7 +90,7 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    autoOpen: {
+    timeToOpen: {
       type: Number,
       required: false,
     },
@@ -148,11 +148,10 @@ export default defineComponent({
         }
       }
     )
-
-    if (props.autoOpen) {
+    if (typeof props.timeToOpen === 'number') {
       setTimeout(() => {
         show.value = true
-      }, props.autoOpen * 1000)
+      }, props.timeToOpen * 1000)
     }
 
     function togglePopup() {

@@ -3,7 +3,7 @@
 
   <VueLiveChatPopup
     icon
-    :auto-open="10"
+    :time-to-open="10"
     class="whatsapp-chat"
     :attendants="attendants"
   />
