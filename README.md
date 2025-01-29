@@ -1,5 +1,18 @@
 # Vue LiveChat Popup
 
+<p align="center">
+  <img src="https://img.shields.io/npm/dt/vue-livechat-popup" alt="npm download count">
+  <img src="https://img.shields.io/github/stars/momohammadi/vue-livechat-popup" alt="GitHub stars">
+  <img src="https://img.shields.io/github/license/momohammadi/vue-livechat-popup" alt="License">
+  <img src="https://img.shields.io/github/forks/momohammadi/vue-livechat-popup" alt="GitHub forks">
+  <img src="https://img.shields.io/npm/v/vue-livechat-popup" alt="npm version">
+  <img src="https://img.shields.io/github/issues/momohammadi/vue-livechat-popup" alt="GitHub issues">
+  <img src="https://img.shields.io/npm/last-update/vue-livechat-popup" alt="NPM update">
+  <img src="https://img.shields.io/npm/l/vue-livechat-popup" alt="npm license">
+  <img src="https://img.shields.io/github/contributors/momohammadi/vue-livechat-popup" alt="GitHub contributors">
+  <img src="https://img.shields.io/github/commit-activity/t/momohammadi/vue-livechat-popup" alt="GitHub commit activity">
+</p>
+
 Vue Livechat Popup is a simple and powerful Vue.js plugin that enables you to easily create an attractive live chat popup for your website. It supports popular messaging platforms such as WhatsApp, Telegram, and Messenger, which allow you to connect directly with your users.
 
 This lightweight and flexible plugin requires no server or additional account setup. With just a few simple configurations, you can enhance the user experience and improve customer interactions on your website.
@@ -15,16 +28,14 @@ Vue Livechat Popup is the perfect solution for websites of all sizes, offering a
   - [Custom style](#custom-style)
   - [Props](#props)
   - [Events](#events)
-      - [example:](#example)
+    - [example:](#example)
   - [Slots](#slots)
     - [header](#header)
     - [body](#body)
-      - [tips](#tips)
     - [footer](#footer)
     - [button](#button)
-  - [Thanks to Ktquez](#thanks-to-ktquez)
-  - [Contributing](#contributing)
-  - [License](#license)
+    - [close](#close)
+  - [Support](#support)
 
 
 # Demo
@@ -136,6 +147,11 @@ const attendants = [
 | `attendants`   | Array | `[]`   | List of attendants to show in popup as live chat agents|
 | `assetsDir`  | String | `not set`   | your public assets directory to show apps logo, if not set will be using our github repo to host app logo     |
 | `dir`  | String | `ltr`   | set **rtl** to use rtl style .     |
+| `open`  | Boolean | `false`   | Set to **true** to show popup by default    |
+| `timeToOpen`  | Number | `none`   | Set a number (in seconds) to show popup after X seconds.     |
+| `numberPageView` | Number | `none`  | Set a number to show the popup after the user has viewed X unique pages. |
+| `openOnRouteName` | Array  | `none`  | Pass an array of route paths to show the popup when the user navigates to these routes. |
+
 
 ## Events
 VueLiveChatPopup triggers events ($emit) when opening and closing the popup.
@@ -145,7 +161,7 @@ VueLiveChatPopup triggers events ($emit) when opening and closing the popup.
 | `open`     | Emitted when the popup is opened.  |
 | `close`    | Emitted when the popup is closed.  |
 
-#### example:
+### example:
 ```js
 <template>
   <div class='layout'>
@@ -174,7 +190,7 @@ Used to customize what will appear in the body of the popup.
   your content here
 </template>
 ```
-#### tips
+#### tips<!-- omit from toc -->
 See custom body with [newsletter form demo](https://vue-livechat-popup.surge.sh/custom).
 
 ### footer
@@ -197,16 +213,46 @@ Add icons or text to the button that triggers the popup
   />
 </template>
 ```
+### close
+Add icons or text to the button that triggers the popup close
+```js
+<template #close>
+  <img 
+  src="https://raw.githubusercontent.com/momohammadi/vue-livechat-popup/main/src/assets/icons/close.svg"
+    alt="icon close"
+    aria-hidden="true"
+  />
+</template>
+```
+## Support 
+If you find this project useful, please consider supporting it:
+### 🙏Your support helps keep the project alive!🙏<!-- omit from toc -->
 
-## Thanks to Ktquez
+<div align="center">
+
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=☕&slug=momohammadi&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/momohammadi)
+
+Or consider donating via PayPal:
+
+[![Donate with PayPal](https://www.paypalobjects.com/en_US/AT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=JKAEKMXSZG3U2)
+</div>
+
+### Thank you for your support! 🚀<!-- omit from toc -->
+
+
+
+## Thanks to Ktquez <!-- omit from toc -->
+
 this plugin write based on [this repository](https://github.com/ktquez/vue-social-chat/) with many changes and some localization
 
 
-## Contributing
+## Contributing <!-- omit from toc -->
+
 
 Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
 
-## License
+## License <!-- omit from toc -->
+
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 

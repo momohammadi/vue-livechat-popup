@@ -55,7 +55,15 @@
 </template>
 
 <script>
-import { defineComponent, onBeforeUnmount, ref, watch } from 'vue'
+import {
+  getCurrentInstance,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+  onUnmounted,
+} from 'vue'
 import ListAttendant from './ListAttendant.vue'
 import { FocusLoop } from '@vue-a11y/focus-loop'
 import { URL_ASSETS, HREF_BY_APP } from '../constants'
@@ -94,11 +102,18 @@ export default defineComponent({
       type: Number,
       required: false,
     },
+    openOnRouteName: {
+      type: Array,
+      required: false,
+    },
+    numberPageView: {
+      type: Number,
+      required: false,
+    },
   },
   methods: {
     buttonIcon(name) {
       if (this.assetsDir != undefined) {
-        // Example implementation
         return `${this.assetsDir}/${name}.svg`
       } else {
         return `${this.urlAssets}/icons/${name}.svg`
@@ -127,10 +142,25 @@ export default defineComponent({
     const urlAssets = ref(URL_ASSETS)
     const vlcpPopup = ref(null)
     const vlcpButton = ref(null)
+    const currentRoute = ref(window.location.pathname)
+    const visitedPages = ref(
+      JSON.parse(localStorage.getItem('VLCP_visitedPages')) || []
+    )
 
     onBeforeUnmount(() => {
       removeEventListeners()
     })
+
+    function autoPopUpToggle(event, state) {
+      if (event) {
+        document.addEventListener('click', closeClickOutside)
+        document.addEventListener('keydown', closeKeydownEsc)
+      } else {
+        show.value = state
+        if (!show.value) return emit('close')
+        emit('open')
+      }
+    }
 
     watch(show, (val) => {
       if (!val) return removeEventListeners()
@@ -140,29 +170,26 @@ export default defineComponent({
     watch(
       () => props.open,
       (newVal) => {
-        if (event) {
-          document.addEventListener('click', closeClickOutside)
-          document.addEventListener('keydown', closeKeydownEsc)
-        } else {
-          show.value = newVal
-        }
+        autoPopUpToggle(event, newVal)
       }
     )
     if (typeof props.timeToOpen === 'number') {
       setTimeout(() => {
-        show.value = true
+        autoPopUpToggle(event, true)
       }, props.timeToOpen * 1000)
     }
 
     function togglePopup() {
       show.value = !show.value
       setTimeout(() => vlcpButton.value.blur(), 500)
-      if (!show) return emit('close')
-      return emit('open')
+      if (!show.value) return emit('close')
+      emit('open')
     }
 
     function closeClickOutside({ target }) {
-      if (!vlcpPopup.value.contains(target)) togglePopup()
+      if (!vlcpPopup.value.contains(target)) {
+        togglePopup()
+      }
     }
 
     function closeKeydownEsc({ which }) {
@@ -174,12 +201,54 @@ export default defineComponent({
       document.removeEventListener('keydown', closeKeydownEsc)
     }
 
+    const updateVisitedPages = () => {
+      if (!visitedPages.value.includes(currentRoute.value)) {
+        visitedPages.value.push(currentRoute.value)
+        localStorage.setItem(
+          'VLCP_visitedPages',
+          JSON.stringify(visitedPages.value)
+        )
+      }
+      if (visitedPages.value.length >= props.numberPageView) {
+        localStorage.removeItem('VLCP_visitedPages')
+        visitedPages.value = []
+        autoPopUpToggle(event, true)
+      }
+    }
+
+    let observer
+
+    onMounted(() => {
+      observer = new MutationObserver(() => {
+        if (window.location.pathname !== currentRoute.value) {
+          currentRoute.value = window.location.pathname
+          updateVisitedPages()
+        }
+      })
+
+      observer.observe(document.body, { childList: true, subtree: true })
+    })
+
+    onUnmounted(() => {
+      if (observer) observer.disconnect()
+    })
+
+    if (Array.isArray(props.openOnRouteName)) {
+      props.openOnRouteName.forEach((route) => {
+        if (currentRoute.value.includes(route)) {
+          setTimeout(() => {
+            autoPopUpToggle(event, true)
+          }, 500)
+        }
+      })
+    }
     return {
       show,
       urlAssets,
       vlcpPopup,
       vlcpButton,
       togglePopup,
+      visitedPages,
     }
   },
 })
