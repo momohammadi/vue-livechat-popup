@@ -86,6 +86,10 @@ export default defineComponent({
       type: String,
       default: 'ltr',
     },
+    open: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     buttonIcon(name) {
@@ -114,8 +118,8 @@ export default defineComponent({
       })
     },
   },
-  setup(_, { emit }) {
-    const show = ref(false)
+  setup(props, { emit }) {
+    const show = ref(props.open)
     const urlAssets = ref(URL_ASSETS)
     const vlcpPopup = ref(null)
     const vlcpButton = ref(null)

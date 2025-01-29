@@ -60,5 +60,9 @@ export default [
   {
     path: '/rtl',
     component: () => import('../pages/RTL.vue')
+  },
+  {
+    path: '/default-open',
+    component: () => import('../pages/DefaultOpen.vue')
   }
 ]
