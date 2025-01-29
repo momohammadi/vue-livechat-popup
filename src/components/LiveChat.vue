@@ -90,6 +90,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    autoOpen: {
+      type: Number,
+      required: false,
+    },
   },
   methods: {
     buttonIcon(name) {
@@ -144,6 +148,13 @@ export default defineComponent({
         }
       }
     )
+
+    if (props.autoOpen) {
+      setTimeout(() => {
+        show.value = true
+      }, props.autoOpen * 1000)
+    }
+
     function togglePopup() {
       show.value = !show.value
       setTimeout(() => vlcpButton.value.blur(), 500)

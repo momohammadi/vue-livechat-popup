@@ -3,7 +3,7 @@
 
   <VueLiveChatPopup
     icon
-    :open="autoOpen"
+    :auto-open="10"
     class="whatsapp-chat"
     :attendants="attendants"
   />
@@ -48,14 +48,12 @@ export default {
     ]
     let intervalId = null
     const counter = ref(10)
-    const autoOpen = ref(false)
     onMounted(() => {
       intervalId = setInterval(() => {
         if (counter.value > 0) {
           counter.value -= 1
         } else {
           clearInterval(intervalId)
-          autoOpen.value = true
         }
       }, 1000)
     })
@@ -64,7 +62,7 @@ export default {
       clearInterval(intervalId)
     })
 
-    return { attendants, autoOpen, counter }
+    return { attendants, counter }
   },
 }
 </script>
