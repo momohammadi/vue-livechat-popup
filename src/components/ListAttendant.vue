@@ -13,7 +13,11 @@
         :aria-label="`Contact ${attendant.name}, opens in a new window`"
       >
         <div class="vlcp-popup-body__link-avatar">
-          <img :src="attendant.avatar.src" :alt="attendant.avatar.alt" />
+          <img
+            :src="attendant.avatar.src"
+            :alt="attendant.avatar.alt"
+            loading="lazy"
+          />
           <span
             class="vlcp-popup-body__link-avatar-brand"
             :style="

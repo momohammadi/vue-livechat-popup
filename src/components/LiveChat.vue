@@ -37,6 +37,7 @@
               :src="`${buttonIcon('chat')}`"
               alt="chat icon"
               aria-hidden="true"
+              loading="lazy"
             />
           </slot>
         </span>
@@ -46,6 +47,7 @@
               :src="`${buttonIcon('close')}`"
               alt="close icon"
               aria-hidden="true"
+              loading="lazy"
             />
           </slot>
         </span>
