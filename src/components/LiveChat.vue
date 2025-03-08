@@ -79,41 +79,56 @@ export default defineComponent({
   },
 
   props: {
+    /** Determines whether the chat icon should be displayed */
     icon: {
       type: Boolean,
       default: false,
     },
 
+    /** List of attendants available in the chat */
     attendants: {
       type: Array,
       default: () => [],
     },
+
+    /** Directory path for assets */
     assetsDir: {
       type: String,
       required: false,
     },
+
+    /** Direction of text (LTR or RTL) */
     dir: {
       type: String,
       default: 'ltr',
     },
+
+    /** Controls whether the popup is initially open */
     open: {
       type: Boolean,
       default: false,
     },
+
+    /** Time delay before automatically opening the popup (in seconds) */
     timeToOpen: {
       type: Number,
       required: false,
     },
+
+    /** List of route names where the popup should automatically open */
     openOnRouteName: {
       type: Array,
       required: false,
     },
+
+    /** Number of page views before the popup should appear */
     numberPageView: {
       type: Number,
       required: false,
     },
   },
   methods: {
+    /** Generates the URL for a button icon */
     buttonIcon(name) {
       if (this.assetsDir != undefined) {
         return `${this.assetsDir}/${name}.svg`
@@ -123,10 +138,12 @@ export default defineComponent({
     },
   },
   computed: {
+    /** Returns an accessible label for the chat button */
     ariaLabelButton() {
       return `${this.show ? 'Close' : 'Open'} livechat popup`
     },
 
+    /** Processes the list of attendants and assigns correct href links */
     getAttendants() {
       return this.attendants.map((attendant) => {
         const href = attendant.app
@@ -153,6 +170,7 @@ export default defineComponent({
       removeEventListeners()
     })
 
+    /** Handles automatic popup toggling */
     function autoPopUpToggle(event, state) {
       if (event) {
         document.addEventListener('click', closeClickOutside)
@@ -169,18 +187,21 @@ export default defineComponent({
       document.addEventListener('click', closeClickOutside)
       document.addEventListener('keydown', closeKeydownEsc)
     })
+
     watch(
       () => props.open,
       (newVal) => {
         autoPopUpToggle(event, newVal)
       }
     )
+
     if (typeof props.timeToOpen === 'number') {
       setTimeout(() => {
         autoPopUpToggle(event, true)
       }, props.timeToOpen * 1000)
     }
 
+    /** Toggles the chat popup visibility */
     function togglePopup() {
       show.value = !show.value
       setTimeout(() => vlcpButton.value.blur(), 500)
@@ -188,21 +209,25 @@ export default defineComponent({
       emit('open')
     }
 
+    /** Closes the popup when clicking outside */
     function closeClickOutside({ target }) {
       if (!vlcpPopup.value.contains(target)) {
         togglePopup()
       }
     }
 
+    /** Closes the popup when pressing the Escape key */
     function closeKeydownEsc({ which }) {
       if (which === 27) togglePopup()
     }
 
+    /** Removes event listeners to prevent memory leaks */
     function removeEventListeners() {
       document.removeEventListener('click', closeClickOutside)
       document.removeEventListener('keydown', closeKeydownEsc)
     }
 
+    /** Tracks visited pages and manages popup display based on views */
     const updateVisitedPages = () => {
       if (!visitedPages.value.includes(currentRoute.value)) {
         visitedPages.value.push(currentRoute.value)
@@ -244,6 +269,7 @@ export default defineComponent({
         }
       })
     }
+
     return {
       show,
       urlAssets,
