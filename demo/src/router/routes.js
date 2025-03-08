@@ -93,5 +93,10 @@ export default [
     path: '/open-route',
     name: 'openOnRouteName',
     component: () => import('../pages/OpenOnRouteName.vue')
+  },
+  {
+    path: '/blink-title',
+    name: 'blinkTitle',
+    component: () => import('../pages/BlinkTitle.vue')
   }
 ]
