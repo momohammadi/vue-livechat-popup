@@ -126,6 +126,11 @@ export default defineComponent({
       type: Number,
       required: false,
     },
+    /** play ding sound on auto open events */
+    playSound: {
+      type: Boolean,
+      default: true,
+    },
   },
   methods: {
     /** Generates the URL for a button icon */
@@ -162,6 +167,7 @@ export default defineComponent({
     const vlcpPopup = ref(null)
     const vlcpButton = ref(null)
     const currentRoute = ref(window.location.pathname)
+    let observer
     const visitedPages = ref(
       JSON.parse(localStorage.getItem('VLCP_visitedPages')) || []
     )
@@ -169,6 +175,26 @@ export default defineComponent({
     onBeforeUnmount(() => {
       removeEventListeners()
     })
+
+    /** Play the buzz sound */
+    function playSound() {
+      if (props.playSound) {
+        const soundSrc = props.assetsDir
+          ? `${props.assetsDir}/sounds/ding.mp3`
+          : `${URL_ASSETS}/sounds/ding.mp3`
+        const audio = new Audio(soundSrc)
+        audio.onerror = () => {
+          console.error(
+            `Ding plays but file is not found or not supported: ${soundSrc}`
+          )
+        }
+        audio.oncanplaythrough = () => {
+          audio.play().catch((error) => {
+            console.error('Audio playback error:', error)
+          })
+        }
+      }
+    }
 
     /** Handles automatic popup toggling */
     function autoPopUpToggle(event, state) {
@@ -186,6 +212,7 @@ export default defineComponent({
       if (!val) return removeEventListeners()
       document.addEventListener('click', closeClickOutside)
       document.addEventListener('keydown', closeKeydownEsc)
+      playSound()
     })
 
     watch(
@@ -243,7 +270,6 @@ export default defineComponent({
       }
     }
 
-    let observer
     onMounted(() => {
       observer = new MutationObserver(() => {
         if (window.location.pathname !== currentRoute.value) {
