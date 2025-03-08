@@ -151,7 +151,12 @@ const attendants = [
 | `timeToOpen`  | Number | `none`   | Set a number (in seconds) to show popup after X seconds.     |
 | `numberPageView` | Number | `none`  | Set a number to show the popup after the user has viewed X unique pages. |
 | `openOnRouteName` | Array  | `none`  | Pass an array of route paths to show the popup when the user navigates to these routes. |
-
+ `playSound`   | Boolean | `true`   | Enables a sound effect for all auto-open popup events. |
+| `blink`       | Boolean | `false`  | Animates the page title as scrolling text when the tab is inactive. |
+| `blinkTitle`  | String  | `🔔Ask your question here!` | The text displayed as the animated page title. |
+| `blinkDuration` | Number  | `0`  | Duration of the blinking effect in seconds. `0` means infinite. |
+| `blinkWalkSpeed` | Number  | `250`  | Speed of the scrolling text animation in milliseconds. |
+| `blinkDelay`  | Number  | `1`  | Delay before the blinking effect starts when the tab is inactive (in seconds). |
 
 ## Events
 VueLiveChatPopup triggers events ($emit) when opening and closing the popup.
