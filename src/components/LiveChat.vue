@@ -258,8 +258,6 @@ export default defineComponent({
         autoPopUpToggle(event, true)
         const message = props.blinkTitle + originalTitle
         let index = 0
-        playSound()
-
         // Start scrolling the title
         intervalId = setInterval(() => {
           document.title =
@@ -283,9 +281,11 @@ export default defineComponent({
       if (event) {
         document.addEventListener('click', closeClickOutside)
         document.addEventListener('keydown', closeKeydownEsc)
+        playSound()
       } else {
         show.value = state
         if (!show.value) return emit('close')
+        playSound()
         emit('open')
       }
     }
@@ -294,7 +294,6 @@ export default defineComponent({
       if (!val) return removeEventListeners()
       document.addEventListener('click', closeClickOutside)
       document.addEventListener('keydown', closeKeydownEsc)
-      playSound()
     })
 
     watch(
