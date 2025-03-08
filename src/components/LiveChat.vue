@@ -126,10 +126,41 @@ export default defineComponent({
       type: Number,
       required: false,
     },
+
     /** play ding sound on auto open events */
     playSound: {
       type: Boolean,
       default: true,
+    },
+
+    /** enable blink */
+    blink: {
+      type: Boolean,
+      default: false,
+    },
+
+    /** Page title during blink */
+    blinkTitle: {
+      type: String,
+      default: '🔔 Ask you Question here! 👋',
+    },
+
+    /** Duration of blink */
+    blinkDuration: {
+      type: Number,
+      default: 0,
+    },
+
+    /** Delay to start blinking */
+    blinkWalkSpeed: {
+      type: Number,
+      default: 250,
+    },
+
+    /** delay before start blinking in second */
+    blinkDelay: {
+      type: Number,
+      default: 1,
     },
   },
   methods: {
@@ -167,7 +198,10 @@ export default defineComponent({
     const vlcpPopup = ref(null)
     const vlcpButton = ref(null)
     const currentRoute = ref(window.location.pathname)
+    let intervalId
+    let isTabActive
     let observer
+    let originalTitle
     const visitedPages = ref(
       JSON.parse(localStorage.getItem('VLCP_visitedPages')) || []
     )
@@ -175,6 +209,22 @@ export default defineComponent({
     onBeforeUnmount(() => {
       removeEventListeners()
     })
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'hidden') {
+        if (props.blink) {
+          setTimeout(() => {
+            blinkTitle()
+          }, props.blinkDelay * 1000)
+        }
+        isTabActive = false
+      } else {
+        blinkTitle(true)
+        isTabActive = true
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
 
     /** Play the buzz sound */
     function playSound() {
@@ -192,6 +242,38 @@ export default defineComponent({
           audio.play().catch((error) => {
             console.error('Audio playback error:', error)
           })
+        }
+      }
+    }
+
+    function blinkTitle(forceRemove = false) {
+      if (forceRemove) {
+        document.removeEventListener('visibilitychange', handleVisibilityChange)
+        if (intervalId) {
+          clearInterval(intervalId)
+          document.title = originalTitle
+          intervalId = null // Reset it after clearing
+        }
+      } else {
+        autoPopUpToggle(event, true)
+        const message = props.blinkTitle + originalTitle
+        let index = 0
+        playSound()
+
+        // Start scrolling the title
+        intervalId = setInterval(() => {
+          document.title =
+            message.substring(index) + ' ' + message.substring(0, index)
+          index = (index + 1) % message.length
+        }, props.blinkWalkSpeed)
+
+        // Stop scrolling after the given duration
+        if (props.blinkDuration !== 0) {
+          setTimeout(() => {
+            clearInterval(intervalId)
+            document.title = originalTitle
+            intervalId = null // Reset after stopping
+          }, props.blinkDuration)
         }
       }
     }
@@ -252,6 +334,7 @@ export default defineComponent({
     function removeEventListeners() {
       document.removeEventListener('click', closeClickOutside)
       document.removeEventListener('keydown', closeKeydownEsc)
+      blinkTitle(true)
     }
 
     /** Tracks visited pages and manages popup display based on views */
@@ -271,6 +354,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      originalTitle = document.title
       observer = new MutationObserver(() => {
         if (window.location.pathname !== currentRoute.value) {
           currentRoute.value = window.location.pathname
