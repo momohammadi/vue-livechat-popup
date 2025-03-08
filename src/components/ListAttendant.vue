@@ -59,9 +59,9 @@ export default defineComponent({
     appLogo(name) {
       if (this.assetsDir != undefined) {
         // Example implementation
-        return `${this.assetsDir}/${name}.png`
+        return `${this.assetsDir}/socials-logo/${name}.png`
       } else {
-        return `${this.urlAsset}/logos/${name}.png`
+        return `${this.urlAsset}/socials-logo/${name}.png`
       }
     },
   },

@@ -131,7 +131,7 @@ export default defineComponent({
     /** Generates the URL for a button icon */
     buttonIcon(name) {
       if (this.assetsDir != undefined) {
-        return `${this.assetsDir}/${name}.svg`
+        return `${this.assetsDir}/icons/${name}.svg`
       } else {
         return `${this.urlAssets}/icons/${name}.svg`
       }
@@ -244,7 +244,6 @@ export default defineComponent({
     }
 
     let observer
-
     onMounted(() => {
       observer = new MutationObserver(() => {
         if (window.location.pathname !== currentRoute.value) {
