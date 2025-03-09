@@ -248,7 +248,6 @@ export default defineComponent({
 
     function blinkTitle(forceRemove = false) {
       if (forceRemove) {
-        document.removeEventListener('visibilitychange', handleVisibilityChange)
         if (intervalId) {
           clearInterval(intervalId)
           document.title = originalTitle
@@ -271,6 +270,10 @@ export default defineComponent({
             clearInterval(intervalId)
             document.title = originalTitle
             intervalId = null // Reset after stopping
+            document.removeEventListener(
+              'visibilitychange',
+              handleVisibilityChange
+            )
           }, props.blinkDuration)
         }
       }
