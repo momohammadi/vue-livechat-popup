@@ -214,6 +214,7 @@ export default defineComponent({
       if (document.visibilityState === 'hidden') {
         if (props.blink) {
           setTimeout(() => {
+            originalTitle = document.title
             blinkTitle()
           }, props.blinkDelay * 1000)
         }
@@ -356,7 +357,6 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      originalTitle = document.title
       observer = new MutationObserver(() => {
         if (window.location.pathname !== currentRoute.value) {
           currentRoute.value = window.location.pathname
