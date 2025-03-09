@@ -201,7 +201,9 @@ export default defineComponent({
     let intervalId
     let isTabActive
     let observer
-    let originalTitle
+    let originalTitle = document.title
+    let blinking
+
     const visitedPages = ref(
       JSON.parse(localStorage.getItem('VLCP_visitedPages')) || []
     )
@@ -212,9 +214,10 @@ export default defineComponent({
 
     function handleVisibilityChange() {
       if (document.visibilityState === 'hidden') {
-        if (props.blink) {
+        originalTitle = document.title
+        if (props.blink && !blinking) {
           setTimeout(() => {
-            originalTitle = document.title
+            console.log('start blinking')
             blinkTitle()
           }, props.blinkDelay * 1000)
         }
@@ -253,8 +256,10 @@ export default defineComponent({
           clearInterval(intervalId)
           document.title = originalTitle
           intervalId = null // Reset it after clearing
+          blinking = false
         }
-      } else {
+      } else if (!isTabActive && !blinking) {
+        blinking = true
         autoPopUpToggle(event, true)
         const message = props.blinkTitle + originalTitle
         let index = 0
@@ -285,10 +290,12 @@ export default defineComponent({
       if (event) {
         document.addEventListener('click', closeClickOutside)
         document.addEventListener('keydown', closeKeydownEsc)
+        console.log('auto popup open on event')
         playSound()
       } else {
         show.value = state
         if (!show.value) return emit('close')
+        console.log('auto popup open on else')
         playSound()
         emit('open')
       }
