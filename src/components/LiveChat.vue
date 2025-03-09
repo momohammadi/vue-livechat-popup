@@ -217,7 +217,6 @@ export default defineComponent({
         originalTitle = document.title
         if (props.blink && !blinking) {
           setTimeout(() => {
-            console.log('start blinking')
             blinkTitle()
           }, props.blinkDelay * 1000)
         }
@@ -290,12 +289,10 @@ export default defineComponent({
       if (event) {
         document.addEventListener('click', closeClickOutside)
         document.addEventListener('keydown', closeKeydownEsc)
-        console.log('auto popup open on event')
         playSound()
       } else {
         show.value = state
         if (!show.value) return emit('close')
-        console.log('auto popup open on else')
         playSound()
         emit('open')
       }
