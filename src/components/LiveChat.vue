@@ -2,7 +2,12 @@
   <FocusLoop class="vlcp-container" :disabled="!show">
     <div ref="vlcpPopup" class="vlcp-popup" :dir="dir">
       <transition name="scale">
-        <div v-show="show" id="vlcp-popup-box" class="vlcp-popup-box">
+        <div
+          v-show="show"
+          id="vlcp-popup-box"
+          class="vlcp-popup-box"
+          :aria-hidden="!show ? 'true' : 'false'"
+        >
           <div v-show="$slots.header" class="vlcp-popup-header">
             <slot name="header" />
           </div>
@@ -36,7 +41,6 @@
             <img
               :src="`${buttonIcon('chat')}`"
               alt="chat icon"
-              aria-hidden="true"
               loading="lazy"
             />
           </slot>
@@ -46,7 +50,7 @@
             <img
               :src="`${buttonIcon('close')}`"
               alt="close icon"
-              aria-hidden="true"
+              :aria-hidden="!show ? 'true' : 'false'"
               loading="lazy"
             />
           </slot>
@@ -286,6 +290,7 @@ export default defineComponent({
 
     /** Handles automatic popup toggling */
     function autoPopUpToggle(event, state) {
+      console.log(state)
       if (event) {
         document.addEventListener('click', closeClickOutside)
         document.addEventListener('keydown', closeKeydownEsc)
@@ -320,7 +325,9 @@ export default defineComponent({
     /** Toggles the chat popup visibility */
     function togglePopup() {
       show.value = !show.value
-      setTimeout(() => vlcpButton.value.blur(), 500)
+      if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur()
+      }
       if (!show.value) return emit('close')
       emit('open')
     }

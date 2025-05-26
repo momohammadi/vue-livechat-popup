@@ -1,7 +1,7 @@
 {
   "name": "vue-livechat-popup",
   "type": "module",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "This simple and practical Vue.js plugin helps you effortlessly create a beautiful popup for your live chat section on your website using messaging services like WhatsApp, Telegram, Messenger, etc., without the need for any server or account.",
   "author": "Morteza Saeed mohammadi <m.mohammadi721@gmail.com> (https://github.com/momohammadi)",
   "main": "dist/index.js",
